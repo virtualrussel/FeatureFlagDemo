@@ -13,7 +13,7 @@
             <a href="#services">Services</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
-            <a href="#hours">Hours</a>
+            <a href="#hours" id="hoursLink" style="display: none;">Hours</a>
         </nav>
     </header>
     <main>
@@ -45,6 +45,7 @@
       window.onload = function() {
           if (featureFlagHoursVisible) {
               document.getElementById('hours').style.display = 'block';
+              document.getElementById('hoursLink').style.display = 'inline-block'; // or 'block', depending on layout
           }
       };
     </script>
