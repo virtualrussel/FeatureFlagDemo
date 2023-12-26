@@ -32,6 +32,21 @@
             <h2>Contact Us</h2>
             <p>Contact details and form.</p>
         </section>
+        <section id="hours" style="display: none;>
+            <h2>Hours Available</h2>
+            <p>Nine to Five</p>
+        </section>
     </main>
+    <script>
+      // Feature flag
+      var featureFlagHoursVisible = true; // Set this to 'true' to show the 'Hours' section
+  
+      window.onload = function() {
+          if (featureFlagHoursVisible) {
+              document.getElementById('hours').style.display = 'block';
+          }
+      };
+    </script>
 </body>
 </html>
+
