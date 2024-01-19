@@ -1,0 +1,29 @@
+<script>
+    var ldClient = LDClient.initialize('YOUR_SDK_KEY', { "key": "user_key" });
+
+    function updateBackgroundColor(isGreenBackground) {
+        document.body.style.backgroundColor = isGreenBackground ? 'green' : '#007bff'; // Green or blue
+    }
+
+    function updateMenuItemVisibility(isMenuItemVisible) {
+        document.getElementById('hoursLink').style.display = isMenuItemVisible ? 'inline-block' : 'none';
+        document.getElementById('hours').style.display = isMenuItemVisible ? 'block' : 'none';
+    }
+
+    ldClient.on('ready', function() {
+        var isGreenBackground = ldClient.variation('green-background', false);
+        var isMenuItemVisible = ldClient.variation('menu-item-feature', false);
+
+        updateBackgroundColor(isGreenBackground);
+        updateMenuItemVisibility(isMenuItemVisible);
+    });
+
+    ldClient.on('change', function(flags) {
+        if (flags['green-background'] !== undefined) {
+            updateBackgroundColor(flags['green-background']);
+        }
+        if (flags['menu-item-feature'] !== undefined) {
+            updateMenuItemVisibility(flags['menu-item-feature']);
+        }
+    });
+</script>
