@@ -39,15 +39,22 @@
         </section>
     </main>
     <script>
-      // Feature flag
-      var featureFlagHoursVisible = false; // Set this to 'true' to show the 'Hours' section
-  
+      var isGreenBackgroundEnabled = false; // Set this to true to enable green background
+      var isMenuItemEnabled = false;         // Set this to true to enable the menu item
+
+      function updateBackgroundColor() {
+            document.body.style.backgroundColor = isGreenBackgroundEnabled ? 'green' : '#007bff'; // Green or blue
+        }
+
+      function updateMenuItemVisibility() {
+            document.getElementById('hoursLink').style.display = isMenuItemEnabled ? 'inline-block' : 'none';
+            document.getElementById('hours').style.display = isMenuItemEnabled ? 'block' : 'none';
+        }
+
       window.onload = function() {
-          if (featureFlagHoursVisible) {
-              document.getElementById('hours').style.display = 'block';
-              document.getElementById('hoursLink').style.display = 'inline-block'; // or 'block', depending on layout
-          }
-      };
+          updateBackgroundColor();
+          updateMenuItemVisibility();
+    };
     </script>
 </body>
 </html>
