@@ -70,20 +70,35 @@
 
         const ldclient = LDClient.initialize(clientSideID, context);
 
-        function render() {
-          const flagValue = ldclient.variation(flagKey, false);
-          const label = 'Feature flag ' + flagKey + ' is ' + flagValue + ' for this context';
-          div.replaceChild(document.createTextNode(label), div.firstChild);
-        }
+        // Wait for the client to be ready
+        ldclient.on('ready', function() {
+            // Now request the feature flags
+            var isGreenBackgroundEnabled = ldclient.variation('Blue-Green', false);
+            // Update the key name for isMenuItemEnabled if it's different in LaunchDarkly
+            // Function to update the background color
+            function updateBackgroundColor() {
+                document.body.style.backgroundColor = isGreenBackgroundEnabled ? 'green' : '#007bff';
+            }
 
-        ldclient.on('initialized', () => {
-          div.appendChild(document.createTextNode('SDK successfully initialized!'), div.firstChild);
-        });
-        ldclient.on('failed', () => {
-          div.appendChild(document.createTextNode('SDK failed to initialize'), div.firstChild);
-        });
-        ldclient.on('ready', render);
-        ldclient.on('change', render);
+            // Function to update the menu item visibility (update the flag key if necessary)
+            function updateMenuItemVisibility() {
+                // Update the flag key if it's different
+                document.getElementById('hoursLink').style.display = isMenuItemEnabled ? 'inline-block' : 'none';
+                document.getElementById('hours').style.display = isMenuItemEnabled ? 'block' : 'none';
+            }
+
+            // Call your functions to apply the initial state
+            updateBackgroundColor();
+            updateMenuItemVisibility();
+ 
+       // ldclient.on('initialized', () => {
+       //   div.appendChild(document.createTextNode('SDK successfully initialized!'), div.firstChild);
+       // });
+       // ldclient.on('failed', () => {
+       //   div.appendChild(document.createTextNode('SDK failed to initialize'), div.firstChild);
+       // });
+       // ldclient.on('ready', render);
+       // ldclient.on('change', render);
 
         // Here we ensure that the SDK shuts down cleanly and has a chance
         // to deliver analytics envets to LaunchDarkly before the program
@@ -94,6 +109,7 @@
         ldclient.close();
       }
       main();
+     });
     </script>    
   </body>
 </html>
