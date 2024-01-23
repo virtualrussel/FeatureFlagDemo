@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/1624d0f62e6/bf61004dpq/7d76a0a9967c2c6_complete.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/launchdarkly-js-client-sdk@3"></script>
     <title>Sample Landing Page</title>
     <link rel="stylesheet" href="style.css">
 </head>
-  <body>
+<body>
     <header>
         <nav>
             <a href="#home">Home</a>
@@ -48,69 +47,22 @@
         </section>
     </main>
     <script>
-      function main()
-      {
-        // Set clientSideID to your LaunchDarkly client-side ID
-        const clientSideID = '65b0143fbed87310077777af';
+      var isGreenBackgroundEnabled = false; // Set this to true to enable green background
+      var isMenuItemEnabled = false;        // Set this to true to enable the menu item
 
-        // Set flagKey to the feature flag key you want to evaluate
-        const flagKey = 'Blue-Green';
+      function updateBackgroundColor() {
+            document.body.style.backgroundColor = isGreenBackgroundEnabled ? 'green' : '#007bff';
+        }
 
-        // Set up the context properties. This context should appear on your
-        // LaunchDarkly contexts dashboard soon after you run the demo.
-        const context = {
-          kind: 'user',
-          key: 'example-context-key',
-          name: 'Sandy'
-        };
+      function updateMenuItemVisibility() {
+            document.getElementById('hoursLink').style.display = isMenuItemEnabled ? 'inline-block' : 'none';
+            document.getElementById('hours').style.display = isMenuItemEnabled ? 'block' : 'none';
+        }
 
-        var div = document.createElement('div');
-        document.body.appendChild(div);
-        div.appendChild(document.createTextNode('Initializing...'));
-
-        const ldclient = LDClient.initialize(clientSideID, context);
-
-        // Wait for the client to be ready
-        ldclient.on('ready', function() {
-            // Now request the feature flags
-            var isGreenBackgroundEnabled = ldclient.variation('Blue-Green', true);
-            // Update the key name for isMenuItemEnabled if it's different in LaunchDarkly
-            // Function to update the background color
-            function updateBackgroundColor() {
-                document.body.style.backgroundColor = isGreenBackgroundEnabled ? 'green' : '#007bff';
-            }
-
-            // Function to update the menu item visibility (update the flag key if necessary)
-            function updateMenuItemVisibility() {
-                // Update the flag key if it's different
-                document.getElementById('hoursLink').style.display = isMenuItemEnabled ? 'inline-block' : 'none';
-                document.getElementById('hours').style.display = isMenuItemEnabled ? 'block' : 'none';
-            }
-
-            // Call your functions to apply the initial state
-            updateBackgroundColor();
-            updateMenuItemVisibility();
- 
-       // ldclient.on('initialized', () => {
-       //   div.appendChild(document.createTextNode('SDK successfully initialized!'), div.firstChild);
-       // });
-       // ldclient.on('failed', () => {
-       //   div.appendChild(document.createTextNode('SDK failed to initialize'), div.firstChild);
-       // });
-       // ldclient.on('ready', render);
-       // ldclient.on('change', render);
-
-        // Here we ensure that the SDK shuts down cleanly and has a chance
-        // to deliver analytics envets to LaunchDarkly before the program
-        // exits. If analytics events are not delivered, the context properties
-        // and flag usage statistics will not appear on your dashboard.
-        // In a normal long-running application, the SDK would continue
-        // running and events would be delivered automatically in the background.
-        ldclient.close();
-      }
-      main();
-     });
-    </script>    
-  </body>
+      window.onload = function() {
+          updateBackgroundColor();
+          updateMenuItemVisibility();
+    };
+    </script>
+</body>
 </html>
-
