@@ -47,6 +47,10 @@
         </section>
     </main>
     <script>
+        // Set the feature flagged variables
+        var isGreenBackgroundEnabled;
+        var isMenuItemVisible;
+        
         // Set clientSideID to the LaunchDarkly client-side ID and contexts
         const clientSideID = '65b0143fbed87310077777af';
         const flagKey = 'Blue-Green';
@@ -58,15 +62,17 @@
         const ldclient = LDClient.initialize(clientSideID, context);
 
         ldclient.on('initialized', function() {
-            var isGreenBackgroundEnabled = ldclient.variation('Blue-Green', false);
+            isGreenBackgroundEnabled = ldclient.variation('Blue-Green', false);
+            updateBackgroundColor();
         });
 
         function updateBackgroundColor() {
-            document.body.style.backgroundColor = isGreenBackgroundEnabled ? 'green' : '#007bff';
+            if (isGreenBackgroundEnabled !== undefined) {
+                document.body.style.backgroundColor = isGreenBackgroundEnabled ? 'green' : '#007bff';
         }
         
         window.onload = function() {
-          updateBackgroundColor();
+          // updateBackgroundColor();
           // updateMenuItemVisibility();
         };
             
