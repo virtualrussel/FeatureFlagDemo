@@ -57,30 +57,29 @@
         }            
         const ldclient = LDClient.initialize(clientSideID, context);
 
-        // Wait for the LD client to be ready
         ldclient.on('initialized', function() {
             var isGreenBackgroundEnabled = ldclient.variation('Blue-Green', false);
         });
-        
 
-
-            
-      var isGreenBackgroundEnabled = false; // Set this to true to enable green background
-      var isMenuItemEnabled = false;        // Set this to true to enable the menu item
-
-      function updateBackgroundColor() {
+        function updateBackgroundColor() {
             document.body.style.backgroundColor = isGreenBackgroundEnabled ? 'green' : '#007bff';
         }
-
-      function updateMenuItemVisibility() {
-            document.getElementById('hoursLink').style.display = isMenuItemEnabled ? 'inline-block' : 'none';
-            document.getElementById('hours').style.display = isMenuItemEnabled ? 'block' : 'none';
-        }
-
-      window.onload = function() {
+        
+        window.onload = function() {
           updateBackgroundColor();
-          updateMenuItemVisibility();
-    };
+          // updateMenuItemVisibility();
+        };
+            
+
+
+        
+      // var isGreenBackgroundEnabled = false; // Set this to true to enable green background
+      // var isMenuItemEnabled = false;        // Set this to true to enable the menu item
+      // function updateMenuItemVisibility() {
+            // document.getElementById('hoursLink').style.display = isMenuItemEnabled ? 'inline-block' : 'none';
+            // document.getElementById('hours').style.display = isMenuItemEnabled ? 'block' : 'none';
+      // }
+
     </script>
 </body>
 </html>
