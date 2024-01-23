@@ -47,22 +47,29 @@
         </section>
     </main>
     <script>
-      var isGreenBackgroundEnabled = false; // Set this to true to enable green background
-      var isMenuItemEnabled = false;         // Set this to true to enable the menu item
+      // Initialize the LaunchDarkly client
+      var ldclient = LDClient.initialize('65b0143fbed87310077777af', { key: 'user_key' });
 
-      function updateBackgroundColor() {
-            document.body.style.backgroundColor = isGreenBackgroundEnabled ? 'green' : '#007bff'; // Green or blue
-        }
+      // Wait for the client to be ready
+      ldclient.on('ready', function() {
+          // Now request the feature flags
+          var isGreenBackgroundEnabled = ldclient.variation('isGreenBackgroundEnabled', false);
+          var isMenuItemEnabled = ldclient.variation('isMenuItemEnabled', false);
 
-      function updateMenuItemVisibility() {
-            document.getElementById('hoursLink').style.display = isMenuItemEnabled ? 'inline-block' : 'none';
-            document.getElementById('hours').style.display = isMenuItemEnabled ? 'block' : 'none';
-        }
+          // Your existing functions
+          function updateBackgroundColor() {
+              document.body.style.backgroundColor = isGreenBackgroundEnabled ? 'green' : '#007bff';
+          }
 
-      window.onload = function() {
+          function updateMenuItemVisibility() {
+              document.getElementById('hoursLink').style.display = isMenuItemEnabled ? 'inline-block' : 'none';
+              document.getElementById('hours').style.display = isMenuItemEnabled ? 'block' : 'none';
+          }
+
+          // Call your functions
           updateBackgroundColor();
           updateMenuItemVisibility();
-    };
+      });
     </script>
 </body>
 </html>
