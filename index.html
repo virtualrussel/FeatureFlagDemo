@@ -73,7 +73,7 @@
         // Wait for the client to be ready
         ldclient.on('ready', function() {
             // Now request the feature flags
-            var isGreenBackgroundEnabled = ldclient.variation('Blue-Green', false);
+            var isGreenBackgroundEnabled = ldclient.variation('Blue-Green', true);
             // Update the key name for isMenuItemEnabled if it's different in LaunchDarkly
             // Function to update the background color
             function updateBackgroundColor() {
