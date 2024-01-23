@@ -61,6 +61,11 @@
             const ldclient = LDClient.initialize(clientSideID, context);
         };            
 
+        // Wait for the LD client to be ready
+        ldclient.on('ready', function() {
+            var isGreenBackgroundEnabled = ldclient.variation('Blue-Green', false);
+        }
+        
 
 
             
