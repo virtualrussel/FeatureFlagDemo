@@ -47,18 +47,16 @@
         </section>
     </main>
     <script>
-        function main() {
-            // Set clientSideID to the LaunchDarkly client-side ID and contexts
-            const clientSideID = '65b0143fbed87310077777af';
-            const flagKey = 'Blue-Green';
-            const context = {
-                kind: 'user',
-                key: 'example-context-key',
-                name: 'Russel'
-            }
-        };            
-
+        // Set clientSideID to the LaunchDarkly client-side ID and contexts
+        const clientSideID = '65b0143fbed87310077777af';
+        const flagKey = 'Blue-Green';
+        const context = {
+            kind: 'user',
+            key: 'example-context-key',
+            name: 'Russel'
+        }            
         const ldclient = LDClient.initialize(clientSideID, context);
+
         // Wait for the LD client to be ready
         ldclient.on('initialized', function() {
             var isGreenBackgroundEnabled = ldclient.variation('Blue-Green', false);
