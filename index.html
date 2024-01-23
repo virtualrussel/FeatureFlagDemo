@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/1624d0f62e6/bf61004dpq/7d76a0a9967c2c6_complete.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/launchdarkly-js-client-sdk@3"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sample Landing Page</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+  <body>
     <header>
         <nav>
             <a href="#home">Home</a>
@@ -47,45 +48,53 @@
         </section>
     </main>
     <script>
-    function main()
-        {
-            // Set clientSideID to your LaunchDarkly client-side ID
-            const clientSideID = '65b0143fbed87310077777af';
-            // Set flagKey to the feature flag key you want to evaluate
-            const flagKey = 'Blue-Green';
+      function main()
+      {
+        // Set clientSideID to your LaunchDarkly client-side ID
+        const clientSideID = '65b0143fbed87310077777af';
 
-            // Set up the context properties. This context should appear on your 
-            // LaunchDarkly contexts dashboard soon after you run the demo.
-            const context = {
-                kind: 'user',
-                key: 'example-context-key',
-                name: 'Sandy'
-            };
+        // Set flagKey to the feature flag key you want to evaluate
+        const flagKey = 'Blue-Green';
 
-            var div = document.createElement('div');
-            document.body.appendChild(div);
-            div.appendChild(document.createTextNode('Initializing...'));
+        // Set up the context properties. This context should appear on your
+        // LaunchDarkly contexts dashboard soon after you run the demo.
+        const context = {
+          kind: 'user',
+          key: 'example-context-key',
+          name: 'Sandy'
+        };
 
-            const ldclient = LDClient.initialize(clientSideID, context);
+        var div = document.createElement('div');
+        document.body.appendChild(div);
+        div.appendChild(document.createTextNode('Initializing...'));
 
-            function render() {
-                const flagValue = ldclient.variation(flagKey, false);
-                const label = 'Feature flag ' + flagKey + ' is ' + flagValue + ' for this context ';
-                div.replaceChild(document.createTextNode(label), div.firstChild);
-            }
+        const ldclient = LDClient.initialize(clientSideID, context);
 
-            ldclient.on('initialized', () => {
-                div.appendChild(document.createTextNode('SDK successfully initialized!'), div.firstChild);
-            });
-            ldclient.on('failed', () => {
-                div.appendChild(document.createTextNode('SDK failed to initialize'), div.firstChild);
-            });
-            ldclient.on('ready', render);
-            ldclient.on('change', render);
-            ldclient.close();
+        function render() {
+          const flagValue = ldclient.variation(flagKey, false);
+          const label = 'Feature flag ' + flagKey + ' is ' + flagValue + ' for this context';
+          div.replaceChild(document.createTextNode(label), div.firstChild);
         }
-        main();
-    </script>
-</body>
+
+        ldclient.on('initialized', () => {
+          div.appendChild(document.createTextNode('SDK successfully initialized!'), div.firstChild);
+        });
+        ldclient.on('failed', () => {
+          div.appendChild(document.createTextNode('SDK failed to initialize'), div.firstChild);
+        });
+        ldclient.on('ready', render);
+        ldclient.on('change', render);
+
+        // Here we ensure that the SDK shuts down cleanly and has a chance
+        // to deliver analytics envets to LaunchDarkly before the program
+        // exits. If analytics events are not delivered, the context properties
+        // and flag usage statistics will not appear on your dashboard.
+        // In a normal long-running application, the SDK would continue
+        // running and events would be delivered automatically in the background.
+        ldclient.close();
+      }
+      main();
+    </script>    
+  </body>
 </html>
 
