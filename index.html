@@ -48,7 +48,7 @@
     </main>
     <script>
       // Initialize the LaunchDarkly client
-      var ldclient = LDClient.initialize('65b0143fbed87310077777af', { key: 'user_key' });
+      var ldclient = LDClient.initialize('65b0143fbed87310077777af', { key: "user_unique_identifier" });
 
       // Wait for the client to be ready
       ldclient.on('ready', function() {
