@@ -56,10 +56,10 @@
                 key: 'example-context-key',
                 name: 'Russel'
             }
-            const ldclient = LDClient.initialize(clientSideID, context);
         };            
 
         // Wait for the LD client to be ready
+        const ldclient = LDClient.initialize(clientSideID, context);
         ldclient.on('initialized', function() {
             var isGreenBackgroundEnabled = ldclient.variation('Blue-Green', false);
         });
