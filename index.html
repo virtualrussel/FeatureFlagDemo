@@ -47,6 +47,18 @@
         </section>
     </main>
     <script>
+        function main() {
+            // Set clientSideID to the LaunchDarkly client-side ID
+            const clientSideID = '65b0143fbed87310077777af';
+            const flagKey = 'Blue-Green';
+            // Set LaunchDarkly contexts
+            const context = {
+                kind: 'user',
+                key: 'example-context-key',
+                name: 'Sandy'
+        };
+
+            
       var isGreenBackgroundEnabled = false; // Set this to true to enable green background
       var isMenuItemEnabled = false;        // Set this to true to enable the menu item
 
