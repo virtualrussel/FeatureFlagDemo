@@ -60,7 +60,7 @@
         // On client initialization, set the background color and section visibility based on the feature flags
         ldclient.on('initialized', function() {
             updateBackgroundColor(ldclient.variation('Blue-Green', false));
-            updateSectionVisibility(ldclient.variation('germany', false));
+            updateHoursVisibility(ldclient.variation('germany', false));
         });
 
         function updateBackgroundColor(isGreenBackgroundEnabled) {
