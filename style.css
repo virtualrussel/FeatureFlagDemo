@@ -34,6 +34,15 @@ section {
     margin: 20px 0;
 }
 
+#hours .hours-details {
+    display: none;
+}
+
+#hours h2:hover + .hours-details,
+#hours .hours-details:hover {
+    display: block;
+}
+
 /* Responsive Design */
 @media (max-width: 600px) {
     header nav a {
