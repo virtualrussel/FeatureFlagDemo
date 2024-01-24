@@ -64,6 +64,9 @@
             document.body.style.backgroundColor = isGreenBackgroundEnabled ? 'green' : '#007bff';
         }
 
+        ldclient.close();
+        )
+
         // No need for window.onload if updateBackgroundColor is only called from the ldclient initialization
         // window.onload = function() {
         // };
