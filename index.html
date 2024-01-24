@@ -55,7 +55,7 @@
             kind: 'user',
             key: 'context-key-123abc'
         };
-        const ldclient = LDClient.initialize('65b0143fbed87310077777af');
+        const ldclient = LDClient.initialize('65b0143fbed87310077777af', context);
 
         // On client initialization, set the background color and section visibility based on the feature flags
         ldclient.on('initialized', function() {
