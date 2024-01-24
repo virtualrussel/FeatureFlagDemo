@@ -58,10 +58,17 @@
         // On client initialization, set the background color based on the feature flag
         ldclient.on('initialized', function() {
             updateBackgroundColor(ldclient.variation('Blue-Green', false));
+            updateMenuItemVisibility(ldclient.variation('Germany', false));
         });
 
         function updateBackgroundColor(isGreenBackgroundEnabled) {
             document.body.style.backgroundColor = isGreenBackgroundEnabled ? 'green' : '#007bff';
+        }
+        
+        function updateMenuItemVisibility(isMenuItemEnabled) {
+            var menuItem = document.getElementById('menuItem');
+            if (menuItem) {
+                menuItem.style.display = isMenuItemEnabled ? 'block' : 'none';
         }
 
         ldclient.close();
