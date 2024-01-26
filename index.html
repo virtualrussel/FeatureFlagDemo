@@ -53,7 +53,9 @@
         // Initialize LaunchDarkly with the client-side ID and user context
         const context = {
             kind: 'user',
-            key: 'Russel Wilkinson'
+            key: 'user-key',
+            firstName: 'Russel',
+            groups: ['DT', 'LD']
         };
         const ldclient = LDClient.initialize('65b0143fbed87310077777af', context);
 
