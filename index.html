@@ -53,14 +53,14 @@
         // Initialize LaunchDarkly with the client-side ID and user context
         const context = {
             kind: 'user',
-            key: 'context-key-123abc'
+            key: 'Russel Wilkinson'
         };
         const ldclient = LDClient.initialize('65b0143fbed87310077777af', context);
 
         // On client initialization, set the background color and section visibility based on the feature flags
         ldclient.on('initialized', function() {
             updateBackgroundColor(ldclient.variation('Blue-Green', false));
-            updateHoursVisibility(ldclient.variation('germany', false));
+            updateHoursVisibility(ldclient.variation('user-flagging', false));
         });
 
         function updateBackgroundColor(isGreenBackgroundEnabled) {
